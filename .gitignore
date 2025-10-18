@@ -50,3 +50,17 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+firmware/RISKYXBoot/obj/*
+firmware/RISKYX/obj/*
+firmware/XBootloader/obj/*
+firmware/XBootloader/.mrs/*
+board/RISKYX68000-backups/*
+.gitignore
+board/~RISKYX68000.kicad_sch.lck
+board/#auto_saved_files#
+board/~RISKYX68000.kicad_pcb.lck
+board/fp-info-cache
+firmware/RISKYX/.mrs/*
+firmware/RISKYX/.settings/*
+firmware/RISKYXBoot/.mrs/*
+firmware/RISKYXBoot/.settings/*

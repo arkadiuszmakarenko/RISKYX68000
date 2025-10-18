@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//Debug/debug.c=GBK
+encoding//Debug/debug.h=GBK
+encoding//Ld/Link.ld=GBK
+encoding//Peripheral/inc/ch32v20x_gpio.h=GBK
+encoding//Peripheral/src/ch32v20x_gpio.c=GBK
+encoding//Peripheral/src/ch32v20x_iwdg.c=GBK
+encoding//Peripheral/src/ch32v20x_usart.c=GBK
+encoding//Startup/startup_ch32v20x_D6.S=GBK
+encoding//User/Host_IAP/usb_host_iap.c=UTF-8
+encoding//User/Host_IAP/usb_host_iap.h=GBK
+encoding//User/USB_Host/ch32v20x_usbfs_host.c=GBK
+encoding//User/USB_Host/usb_host_config.h=GBK
+encoding//User/ch32v20x_it.c=GBK
+encoding//User/main.c=GBK
+encoding//User/utils.c=GBK
+encoding//User/utils.h=GBK
