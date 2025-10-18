@@ -64,3 +64,4 @@ firmware/RISKYX/.mrs/*
 firmware/RISKYX/.settings/*
 firmware/RISKYXBoot/.mrs/*
 firmware/RISKYXBoot/.settings/*
+board/RISKYX68000.kicad_prl
