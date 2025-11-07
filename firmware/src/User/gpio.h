@@ -5,10 +5,10 @@
 #include "ch32v20x_rcc.h"
 
 // J7 pin header
-#define RDY_Pin GPIO_Pin_9      // this is the miniDIN-7 READY pin
+#define RDY_Pin GPIO_Pin_9      // miniDIN-7 READY pin (pin 5)
 #define RDY_GPIO_Port GPIOB
-#define P2_Pin GPIO_Pin_8
-#define P2_GPIO_Port GPIOB
+#define MSCTRL_Pin GPIO_Pin_8   // Mouse control signal (Mouse Mini-DIN 5-pin, pin 2)
+#define MSCTRL_GPIO_Port GPIOB
 #define P3_Pin GPIO_Pin_3
 #define P3_GPIO_Port GPIOB
 #define LED_Pin GPIO_Pin_15     // the blue LED on the miniCH32V203 devboard

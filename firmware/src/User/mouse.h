@@ -2,33 +2,42 @@
 #define __MOUSE_H
 
 #include "stdint.h"
+#include "stdbool.h"
 #include "usb_mouse.h"
-#include "utils.h"
 
+// X68000 mouse 3-byte packet structure
+typedef struct
+{
+    union
+    {
+        uint8_t data[3];
+        struct
+        {
+            union
+            {
+                struct
+                {
+                    uint8_t Lbtn:1;     // Bit 0: Left button
+                    uint8_t Rbtn:1;     // Bit 1: Right button
+                    uint8_t unused:2;   // Bits 2-3
+                    uint8_t Xover:1;    // Bit 4: X overflow
+                    uint8_t Xundr:1;    // Bit 5: X underflow
+                    uint8_t Yover:1;    // Bit 6: Y overflow
+                    uint8_t Yundr:1;    // Bit 7: Y underflow
+                };
+                uint8_t state;
+            };
+            int8_t  dx;
+            int8_t  dy;
+        };
+    };
+} X68K_MouseData;
 
+void MouseInit(void);
+void MouseProcess(HID_MOUSE_Data *mousemap);
+void MouseSend(void);
 
-
-#define MOUSEX	            0
-#define MOUSEY	            1
-#define Q_RATELIMIT         500
-#define Q_BUFFERLIMIT       300
-#define DPI_DIVIDER         2
-#define CODE_MMB_UP         0b1110
-#define CODE_MMB_DOWN       0b1101
-#define CODE_WHEEL_UP       0b1011
-#define CODE_WHEEL_DOWN     0b0111
-#define CODE_WHEEL_LEFT     0b1010
-#define CODE_WHEEL_RIGHT    0b0101
-#define CODE_4TH_UP         0b1001
-#define CODE_4TH_DOWN       0b1100
-#define CODE_5TH_UP         0b0110
-#define CODE_5TH_DOWN       0b0011
-
-
-void InitMouse();
-void ProcessMouse(HID_MOUSE_Data *mousemap);
-void ProcessX_IRQ();
-void ProcessY_IRQ();
-void ProcessScrollIRQ();
+void MouseReadyISR(void);
+void MouseMsctrlISR(void);
 
 #endif

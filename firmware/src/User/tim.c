@@ -4,6 +4,9 @@
 void TIM2_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 void TIM4_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 
+// Millisecond counter (incremented by TIM2 interrupt)
+static volatile uint32_t millisCounter = 0;
+
 void TIM1_Init( void )
 {
 
@@ -29,17 +32,19 @@ void TIM1_Init( void )
 
 void TIM2_Init( void )
 {
-
-
     TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure = { 0 };
     NVIC_InitTypeDef NVIC_InitStructure = { 0 };
 
-    /* Enable Timer3 Clock */
+    /* Enable Timer2 Clock */
     RCC_APB1PeriphClockCmd( RCC_APB1Periph_TIM2, ENABLE );
 
-    /* Initialize Timer2 */
-    TIM_TimeBaseStructure.TIM_Period = 1000;
-    TIM_TimeBaseStructure.TIM_Prescaler = 18720-1;
+    /* Initialize Timer2 for 1ms interrupts
+     * APB1 clock = 72MHz (assuming SystemCoreClock = 144MHz)
+     * Prescaler = 72-1 gives 1MHz timer clock
+     * Period = 1000-1 gives 1kHz (1ms) interrupt
+     */
+    TIM_TimeBaseStructure.TIM_Period = 1000 - 1;
+    TIM_TimeBaseStructure.TIM_Prescaler = 72 - 1;
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
     TIM_TimeBaseInit( TIM2, &TIM_TimeBaseStructure );
@@ -58,6 +63,7 @@ void TIM2_Init( void )
     /* Enable timer2 interrupt */
     NVIC_EnableIRQ( TIM2_IRQn );
 
+    millisCounter = 0;
 }
 
 void TIM4_Init( void )
@@ -97,13 +103,19 @@ void TIM4_Init( void )
 
 void TIM2_IRQHandler( void )
 {
-
     if( TIM_GetITStatus( TIM2, TIM_IT_Update ) != RESET )
     {
-    	// ProcessX_IRQ();
+        // Increment millisecond counter
+        millisCounter++;
+
         /* Clear interrupt flag */
         TIM_ClearITPendingBit( TIM2, TIM_IT_Update );
     }
+}
+
+uint32_t GetMillis(void)
+{
+    return millisCounter;
 }
 
 void TIM4_IRQHandler( void )

@@ -15,6 +15,7 @@
 
 void NMI_Handler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 void HardFault_Handler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
+void EXTI9_5_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 void EXTI15_10_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 /*********************************************************************
  * @fn      NMI_Handler
@@ -41,6 +42,22 @@ void HardFault_Handler(void)
   }
 }
 
+void EXTI9_5_IRQHandler(void)
+{
+    // MSCTRL (PB8) - falling edge triggers mouse data send
+    if(EXTI_GetITStatus(EXTI_Line8) != RESET)
+    {
+        MouseMsctrlISR();
+        EXTI_ClearITPendingBit(EXTI_Line8);
+    }
+
+    // READY (PB9) - rising/falling edge updates TX inhibit state
+    if(EXTI_GetITStatus(EXTI_Line9) != RESET)
+    {
+        MouseReadyISR();
+        EXTI_ClearITPendingBit(EXTI_Line9);
+    }
+}
 
 void EXTI15_10_IRQHandler(void)
 {

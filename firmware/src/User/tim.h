@@ -11,4 +11,6 @@ void TIM4_Init( void );
 void TIM2_IRQHandler( void );
 void TIM4_IRQHandler( void );
 
+uint32_t GetMillis(void);
+
 #endif /*__CH32V10x_SYSTEM_H */

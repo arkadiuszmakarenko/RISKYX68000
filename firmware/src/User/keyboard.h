@@ -1,5 +1,5 @@
-#ifndef __AMIGA_INCLUDED__
-#define __AMIGA_INCLUDED__
+#ifndef __KEYBOARD_H
+#define __KEYBOARD_H
 
 #include <stdint.h>
 #include <inttypes.h>
@@ -9,7 +9,6 @@
 
 #define KEY_PRESSED_MAX 6
 
-
 typedef enum {
 	NO_LED = 0,
 	LED_CAPS_LOCK_ON,
@@ -18,7 +17,6 @@ typedef enum {
 	LED_CAPS_LOCK_OFF,
 	LED_NUM_LOCK_OFF,
 	LED_SCROLL_LOCK_OFF,
-	LED_RESET_BLINK,
 } led_status_t;
 
 typedef enum {
@@ -27,16 +25,8 @@ typedef enum {
 	SCROLL_LOCK_LED = (1 << 2),
 } keyboard_led_t;
 
-
-void amikb_process_irq();
-void amikb_init();
-void amikb_startup(void);
-void amikb_process(HID_Keyboard_Data *kbdata);
-void amikb_gpio_init(void);
-void amikb_ready(int isready);
-bool amikb_reset_check(void);
-void amikb_reset(void);
-void amikb_irq(void);
-
+void KeyboardInit(void);
+void KeyboardProcess(HID_Keyboard_Data *kbdata);
+bool KeyboardProcessCommands(uint32_t deltaTime);
 
 #endif
