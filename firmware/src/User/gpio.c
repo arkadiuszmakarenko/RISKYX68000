@@ -10,7 +10,11 @@ void GPIO_Config()
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+
+    // Disconnect PD0/PD1 from the HSE oscillator pads so they can be driven as GPIO
+    GPIO_PinRemapConfig(GPIO_Remap_PD01, ENABLE);
 
     GPIO_InitTypeDef GPIO_InitStructure = {0};
 
@@ -18,11 +22,17 @@ void GPIO_Config()
     /*Configure GPIO pin Output Level */
     GPIO_WriteBit(LED_GPIO_Port,LED_Pin, Bit_SET);
 
+    GPIO_WriteBit(LED1_GPIO_Port,LED1_Pin, Bit_SET);
+    GPIO_WriteBit(LED2_GPIO_Port,LED2_Pin, Bit_SET);
+    GPIO_WriteBit(LED3_GPIO_Port,LED3_Pin, Bit_SET);
+    GPIO_WriteBit(LED4_GPIO_Port,LED4_Pin, Bit_SET);
+    GPIO_WriteBit(LED5_GPIO_Port,LED5_Pin, Bit_SET);
+
     // DE-9
-    GPIO_WriteBit(UP_GPIO_Port, UP_Pin, Bit_RESET);
-    GPIO_WriteBit(DN_GPIO_Port, DN_Pin, Bit_RESET);
-    GPIO_WriteBit(LT_GPIO_Port, LT_Pin, Bit_RESET);
-    GPIO_WriteBit(RT_GPIO_Port, RT_Pin, Bit_RESET);
+    GPIO_WriteBit(UP_GPIO_Port, UP_Pin, Bit_SET);
+    GPIO_WriteBit(DN_GPIO_Port, DN_Pin, Bit_SET);
+    GPIO_WriteBit(LT_GPIO_Port, LT_Pin, Bit_SET);
+    GPIO_WriteBit(RT_GPIO_Port, RT_Pin, Bit_SET);
     GPIO_WriteBit(B1_GPIO_Port, B1_Pin, Bit_SET);
     GPIO_WriteBit(B2_GPIO_Port, B2_Pin, Bit_SET);
 
@@ -41,6 +51,16 @@ void GPIO_Config()
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(LED_GPIO_Port, &GPIO_InitStructure);
 
+    GPIO_InitStructure.GPIO_Pin = LED1_Pin;
+    GPIO_Init(LED1_GPIO_Port, &GPIO_InitStructure);
+    GPIO_InitStructure.GPIO_Pin = LED2_Pin;
+    GPIO_Init(LED2_GPIO_Port, &GPIO_InitStructure);
+    GPIO_InitStructure.GPIO_Pin = LED3_Pin;
+    GPIO_Init(LED3_GPIO_Port, &GPIO_InitStructure);
+    GPIO_InitStructure.GPIO_Pin = LED4_Pin;
+    GPIO_Init(LED4_GPIO_Port, &GPIO_InitStructure);
+    GPIO_InitStructure.GPIO_Pin = LED5_Pin;
+    GPIO_Init(LED5_GPIO_Port, &GPIO_InitStructure);
 
     GPIO_InitStructure.GPIO_Pin = B1_Pin;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;

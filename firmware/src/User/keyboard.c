@@ -324,6 +324,12 @@ static void processCommands(void)
         {
             uint8_t led = ch & 0x7f;
             currentLedState = led;
+
+            GPIO_WriteBit(LED1_GPIO_Port, LED1_Pin, (currentLedState & 0x40) ? Bit_SET : Bit_RESET);
+            GPIO_WriteBit(LED2_GPIO_Port, LED2_Pin, (currentLedState & 0x20) ? Bit_SET : Bit_RESET);
+            GPIO_WriteBit(LED3_GPIO_Port, LED3_Pin, (currentLedState & 0x10) ? Bit_SET : Bit_RESET);
+            GPIO_WriteBit(LED4_GPIO_Port, LED4_Pin, (currentLedState & 0x02) ? Bit_SET : Bit_RESET);
+            GPIO_WriteBit(LED5_GPIO_Port, LED5_Pin, (currentLedState & 0x01) ? Bit_SET : Bit_RESET);
         }
     }
 }
