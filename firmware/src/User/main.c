@@ -34,6 +34,16 @@ USART3 (printf)
 
 */
 
+/*
+
+RX1 <- pin 4 (TxD)
+TX1 -> pin 3 (RxD)
+
+TX2 -> pin 2 (MDATA)
+J1.1 <- pin 5 (READY)
+
+*/
+
 
 void IWDG_Feed_Init(u16 prer, u16 rlr)
 {
